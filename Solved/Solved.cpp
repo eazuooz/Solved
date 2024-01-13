@@ -1,18 +1,22 @@
 ﻿#include <iostream>
 
-int Add()
+
+double divide()
 {
-    int a = 0;
-    int b = 0;
+    double a = 0;
+    double b = 0;
 
     std::cin >> a >> b;
-
-    return a + b;
+    return a / b;
 }
 
 int main()
 {
-    int ret = Add();
+    double ret = divide();
+
+    std::cout << std::fixed;
+    std::cout.precision(9);
+
     std::cout << ret;
 
     return 0;
