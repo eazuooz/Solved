@@ -1,23 +1,30 @@
 ﻿#include <iostream>
+#include <string>
 
-
-double divide()
+int GetWordCount(std::string str)
 {
-    double a = 0;
-    double b = 0;
+    int count = 1;
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (str[i] == ' ')
+            count++;
+    }
 
-    std::cin >> a >> b;
-    return a / b;
+    if (str[0] == ' ')
+        count--;
+
+    if (str[str.length() - 1] == ' ')
+        count--;
+
+    return count;
 }
 
 int main()
 {
-    double ret = divide();
-
-    std::cout << std::fixed;
-    std::cout.precision(9);
-
-    std::cout << ret;
+    std::string str = "";
+    std::getline(std::cin, str);
+    
+    std::cout << GetWordCount(str) << "\n";
 
     return 0;
 }
