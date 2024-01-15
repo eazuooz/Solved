@@ -1,22 +1,31 @@
 ﻿#include <iostream>
+#include <vector>
+#include <algorithm>
 #include <string>
 
-int GetWordCount(std::string str)
+char GetManyUseAlphabet(std::string& str)
 {
-    int count = 1;
+    std::vector<int> bucket = {};
+    bucket.resize(256);
+
     for (size_t i = 0; i < str.length(); i++)
     {
-        if (str[i] == ' ')
-            count++;
+        int idx = static_cast<int>(str[i]);
+        if (str[i] >= 'a')
+        {
+            idx -= 32;
+        }
+
+        bucket[idx]++;
     }
 
-    if (str[0] == ' ')
-        count--;
+    char alphabet = max_element(bucket.begin(), bucket.end()) - bucket.begin();
+    
+    int count = std::count(bucket.begin(), bucket.end(), bucket[alphabet]);
+    if (count >= 2)
+        alphabet = '?';
 
-    if (str[str.length() - 1] == ' ')
-        count--;
-
-    return count;
+    return alphabet;
 }
 
 int main()
@@ -24,7 +33,7 @@ int main()
     std::string str = "";
     std::getline(std::cin, str);
     
-    std::cout << GetWordCount(str) << "\n";
+    std::cout << GetManyUseAlphabet(str) << "\n";
 
     return 0;
 }
