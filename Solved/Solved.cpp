@@ -3,24 +3,23 @@
 #include <algorithm>
 #include <string>
 
+void PrintStars(int count)
+{
+    for (size_t i = 0; i < count; i++)
+    {
+        std::cout << '*';
+    }
+    std::cout << "\n";
+}
 
 int main()
 {
-    int a = 0;
-    int b = 0;
+    int lineCount = 0;
+    std::cin >> lineCount;
 
-    std::cin >> a >> b;
-    if (a > b)
+    for (size_t i = 0; i < lineCount; i++)
     {
-        std::cout << ">" << "\n";
-    }
-    else if (a < b)
-    {
-        std::cout << "<" << "\n";
-    }
-    else
-    {
-        std::cout << "==" << "\n";
+        PrintStars(i + 1);
     }
 
     return 0;
