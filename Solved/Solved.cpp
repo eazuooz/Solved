@@ -6,40 +6,17 @@
 #include <sstream>
 #include <unordered_map>
 
-std::string PrintRepeatString(const std::string& str, const int repeatCount)
-{
-    std::string resultStr = "";
-    for (size_t j = 0; j < str.length(); j++)
-    {
-        for (size_t k = 0; k < repeatCount; k++)
-            resultStr.push_back(str[j]);
-    }
-
-    return resultStr;
-}
 
 int main()
 {
-    int loopCount = 0;
-    std::cin >> loopCount;
+    int number = 0;
+    std::cin >> number;
 
-
-    std::vector<std::string> results = {};
-    for (size_t i = 0; i < loopCount; i++)
+    for (size_t i = 0; i < 9; i++)
     {
-        int repeatCount = 0;
-        std::cin >> repeatCount;
-
-        std::string str = "";
-        std::cin >> str;
-
-        std::string retStr = PrintRepeatString(str, repeatCount);
-        results.push_back(retStr);
-    }
-
-    for (std::string& str : results)
-    {
-        std::cout << str << "\n";
+        std::cout << number << " * " << i + 1;
+        std::cout << " = " << number * (i + 1);
+        std::cout << "\n";
     }
 
     return 0;
