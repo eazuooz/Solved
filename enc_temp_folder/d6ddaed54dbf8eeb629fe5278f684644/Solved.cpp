@@ -30,8 +30,9 @@ int main()
     int maxValue = *(iter);
     int maxIndex = iter - numbers.begin();
 
-    std::cout << maxValue << "\n";
-    std::cout << maxIndex + 1 << "\n";
+    int remainder = SquaredSum(numbers) % 10;
+
+    std::cout << remainder;
 
     return 0;
 }
