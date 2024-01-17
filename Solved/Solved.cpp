@@ -12,11 +12,9 @@ int main()
     int number = 0;
     std::cin >> number;
 
-    for (size_t i = 0; i < 9; i++)
+    for (size_t i = 0; i < number; i++)
     {
-        std::cout << number << " * " << i + 1;
-        std::cout << " = " << number * (i + 1);
-        std::cout << "\n";
+        std::cout << i + 1 << "\n";
     }
 
     return 0;
