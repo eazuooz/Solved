@@ -3,8 +3,13 @@
 #include <algorithm>
 #include <string>
 
-void PrintStars(int count)
+void PrintStars(int count, int lineCount)
 {
+    for (size_t i = 0; i < lineCount - count; i++)
+    {
+        std::cout << ' ';
+    }
+
     for (size_t i = 0; i < count; i++)
     {
         std::cout << '*';
@@ -19,7 +24,7 @@ int main()
 
     for (size_t i = 0; i < lineCount; i++)
     {
-        PrintStars(i + 1);
+        PrintStars(i + 1, lineCount);
     }
 
     return 0;
