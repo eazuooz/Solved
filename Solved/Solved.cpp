@@ -1,31 +1,32 @@
 ﻿#include <iostream>
 #include <vector>
+#include <cmath>
 #include <algorithm>
 #include <string>
 
-void PrintStars(int count, int lineCount)
+int SquaredSum(std::vector<int>& numbers)
 {
-    for (size_t i = 0; i < lineCount - count; i++)
+    int sum = 0;
+    for (size_t i = 0; i < numbers.size(); i++)
     {
-        std::cout << ' ';
+        int squared = pow(numbers[i], 2);
+        sum += squared;
     }
 
-    for (size_t i = 0; i < count; i++)
-    {
-        std::cout << '*';
-    }
-    std::cout << "\n";
+    return sum;
 }
 
 int main()
 {
-    int lineCount = 0;
-    std::cin >> lineCount;
+    std::vector<int> numbers = {};
+    numbers.resize(5);
 
-    for (size_t i = 0; i < lineCount; i++)
-    {
-        PrintStars(i + 1, lineCount);
-    }
+    for (size_t i = 0; i < numbers.size(); i++)
+        std::cin >> numbers[i];
+
+    int remainder = SquaredSum(numbers) % 10;
+
+    std::cout << remainder;
 
     return 0;
 }
