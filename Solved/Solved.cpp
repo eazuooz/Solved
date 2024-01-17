@@ -3,35 +3,41 @@
 #include <cmath>
 #include <algorithm>
 #include <string>
+#include <sstream>
+#include <unordered_map>
 
-int SquaredSum(std::vector<int>& numbers)
+void PrintNumberCount(std::vector<int>& numbers)
 {
-    int sum = 0;
+    int sum = 1;
     for (size_t i = 0; i < numbers.size(); i++)
+        sum *= numbers[i];
+
+    std::string numbersStr = std::to_string(sum);
+
+    std::vector<int> bucket = {};
+    bucket.resize(10);
+    
+    for (size_t i = 0; i < numbersStr.length(); i++)
     {
-        int squared = pow(numbers[i], 2);
-        sum += squared;
+        int idx = numbersStr[i] - '0';
+        bucket[idx] += 1;
     }
 
-    return sum;
+    for (size_t i = 0; i < bucket.size(); i++)
+        std::cout << bucket[i] << "\n";
+
+    return;
 }
 
 int main()
 {
     std::vector<int> numbers = {};
-    numbers.resize(9);
+    numbers.resize(3);
 
     for (size_t i = 0; i < numbers.size(); i++)
         std::cin >> numbers[i];
 
-    std::vector<int>::iterator iter
-        = std::max_element(numbers.begin(), numbers.end());
-
-    int maxValue = *(iter);
-    int maxIndex = iter - numbers.begin();
-
-    std::cout << maxValue << "\n";
-    std::cout << maxIndex + 1 << "\n";
+    PrintNumberCount(numbers);
 
     return 0;
 }
