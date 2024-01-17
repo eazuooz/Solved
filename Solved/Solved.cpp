@@ -6,38 +6,41 @@
 #include <sstream>
 #include <unordered_map>
 
-void PrintNumberCount(std::vector<int>& numbers)
+std::string PrintRepeatString(const std::string& str, const int repeatCount)
 {
-    int sum = 1;
-    for (size_t i = 0; i < numbers.size(); i++)
-        sum *= numbers[i];
-
-    std::string numbersStr = std::to_string(sum);
-
-    std::vector<int> bucket = {};
-    bucket.resize(10);
-    
-    for (size_t i = 0; i < numbersStr.length(); i++)
+    std::string resultStr = "";
+    for (size_t j = 0; j < str.length(); j++)
     {
-        int idx = numbersStr[i] - '0';
-        bucket[idx] += 1;
+        for (size_t k = 0; k < repeatCount; k++)
+            resultStr.push_back(str[j]);
     }
 
-    for (size_t i = 0; i < bucket.size(); i++)
-        std::cout << bucket[i] << "\n";
-
-    return;
+    return resultStr;
 }
 
 int main()
 {
-    std::vector<int> numbers = {};
-    numbers.resize(3);
+    int loopCount = 0;
+    std::cin >> loopCount;
 
-    for (size_t i = 0; i < numbers.size(); i++)
-        std::cin >> numbers[i];
 
-    PrintNumberCount(numbers);
+    std::vector<std::string> results = {};
+    for (size_t i = 0; i < loopCount; i++)
+    {
+        int repeatCount = 0;
+        std::cin >> repeatCount;
+
+        std::string str = "";
+        std::cin >> str;
+
+        std::string retStr = PrintRepeatString(str, repeatCount);
+        results.push_back(retStr);
+    }
+
+    for (std::string& str : results)
+    {
+        std::cout << str << "\n";
+    }
 
     return 0;
 }
