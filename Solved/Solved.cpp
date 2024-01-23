@@ -9,29 +9,19 @@
 
 int main()
 {
-    int year = 0;
-    std::cin >> year;
+    int hour = 0;
+    int minute = 0;
 
-    bool leapYear = false;
-    bool multiplesOf4 = false;
-    bool multiplesOf100 = false;
-    bool multiplesOf400 = false;
+    std::cin >> hour >> minute;
 
-    year % 4 == 0 ? multiplesOf4 = true : multiplesOf4 = false;
-    year % 100 == 0 ? multiplesOf100 = true : multiplesOf100 = false;
-    year % 400 == 0 ? multiplesOf400 = true : multiplesOf400 = false;
+    int totalMinute = 60 * hour + minute;
+    totalMinute -= 45;
 
-    if (multiplesOf4 && !multiplesOf100)
-        leapYear = true;
+    const int oneDayMinute = 60 * 24;
+    totalMinute < 0 ? totalMinute += oneDayMinute : totalMinute;
 
-    if (multiplesOf100 && multiplesOf400)
-        leapYear = true;
-    
-
-    if (leapYear)
-        std::cout << 1;
-    else
-        std::cout << 0;
+    std::cout << totalMinute / 60 
+        << " " << totalMinute % 60;
 
     return 0;
 }
