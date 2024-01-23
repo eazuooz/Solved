@@ -9,20 +9,21 @@
 
 int main()
 {
-    int hour = 0;
-    int minute = 0;
+    std::string nodes = "";
+    for (int i = 0; i < 8; i++)
+    {
+        char ch = 0;
+        std::cin >> ch;
+        nodes.push_back(ch);
+    }
 
-    std::cin >> hour >> minute;
-
-    int totalMinute = 60 * hour + minute;
-    totalMinute -= 45;
-
-    const int oneDayMinute = 60 * 24;
-    totalMinute < 0 ? totalMinute += oneDayMinute : totalMinute;
-
-    std::cout << totalMinute / 60 
-        << " " << totalMinute % 60;
-
+    if (nodes == "12345678")
+        std::cout << "ascending";
+    else if (nodes == "87654321")
+        std::cout << "descending";
+    else
+        std::cout << "mixed";
+    
     return 0;
 }
 
