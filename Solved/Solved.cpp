@@ -1,42 +1,52 @@
-﻿#pragma region LIB
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include <cmath>
 #include <algorithm>
 #include <string>
 #include <sstream>
 #include <unordered_map>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <algorithm>
-#include <string>
-#include <sstream>
-#include <unordered_map>
-#pragma endregion
 
-char CalculateScore(const int score)
+
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include <unordered_map>
+
+void printSum(const std::string& input)
 {
-    if (score >= 60 && score <= 69)
-		return 'D';
-	if (score >= 70 && score <= 79)
-		return 'C';
-	if (score >= 80 && score <= 89)
-		return 'B';
-	if (score >= 90 && score <= 100)
-		return 'A';
-		
-	return 'F';
+    int sum = 0;
+    int value = 1;
+    for (size_t i = 0; i < input.size(); i++)
+    {
+        char ch = input[i];
+        if (ch == 'O')
+        {
+            sum += value;
+            value++;
+        }
+        else
+        {
+            value = 1;
+        }
+    }
+
+    std::cout << sum << "\n";
 }
 
 int main()
 {
-    int score = 0;
-    std::cin >> score;
+    int count = 0;
+    std::cin >> count;
 
-    char grade = CalculateScore(score);
-	std::cout << grade;
+    for (size_t i = 0; i < count; i++)
+    {
+        std::string input = "";
+        std::cin >> input;
+        printSum(input);
+    }
 
     return 0;
 }
-
