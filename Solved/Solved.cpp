@@ -18,22 +18,15 @@
 
 int main()
 {
-	std::vector<int> numbers = {};
-	int count = 0;
-	std::cin >> count;
+	std::string input = "";
+	std::cin >> input;
 
-	for (size_t i = 0; i < count; i++)
+	for (char ch = 'a'; ch <= 'z'; ch++)
 	{
-		int number = 0;
-		std::cin >> number;
-
-		numbers.push_back(number);
+		int find = input.find(ch);
+		std::cout << find << " ";
 	}
-
-	//std::pair<std::vector<int>::iterator, std::vector<int>::iterator> minmax;
-	auto minmax = std::minmax_element(numbers.begin(), numbers.end());
-	std::cout << *minmax.first << " " << *minmax.second;
-
+		
     return 0;
 }
 
