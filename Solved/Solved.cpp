@@ -18,31 +18,22 @@
 
 int main()
 {
+	std::vector<int> numbers = {};
 	int count = 0;
 	std::cin >> count;
-	
+
 	for (size_t i = 0; i < count; i++)
 	{
-		int width = 0;
-		int height = 0;
 		int number = 0;
-
-		std::cin >> height;	
-		std::cin >> width;
 		std::cin >> number;
 
-		int floor = number % height;
-		int roomNumber = number / height + 1;
-
-		if (floor == 0)
-		{
-			floor = height;
-			roomNumber = number / height;
-		}
-		
-		std::cout << floor * 100 + roomNumber << std::endl;
+		numbers.push_back(number);
 	}
-		
+
+	//std::pair<std::vector<int>::iterator, std::vector<int>::iterator> minmax;
+	auto minmax = std::minmax_element(numbers.begin(), numbers.end());
+	std::cout << *minmax.first << " " << *minmax.second;
+
     return 0;
 }
 
