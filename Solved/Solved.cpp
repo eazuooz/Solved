@@ -18,15 +18,17 @@
 
 int main()
 {
-	std::string input = "";
-	std::cin >> input;
+	int a = 0;
+	int b = 0;
 
-	for (char ch = 'a'; ch <= 'z'; ch++)
-	{
-		int find = input.find(ch);
-		std::cout << find << " ";
-	}
-		
-    return 0;
+	std::cin >> a >> b;
+
+	std::cout << a + b << std::endl;
+	std::cout << a - b << std::endl;
+	std::cout << a * b << std::endl;
+	std::cout << a / b << std::endl;
+	std::cout << a % b << std::endl;
+
+	return 0;
 }
 
