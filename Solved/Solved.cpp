@@ -18,16 +18,22 @@
 
 int main()
 {
-	int a = 0;
-	int b = 0;
+	while (true)
+	{
+		std::string num = "";
+		std::cin >> num;
 
-	std::cin >> a >> b;
+		std::string buff = num;
+		std::reverse(num.begin(), num.end());
 
-	std::cout << a + b << std::endl;
-	std::cout << a - b << std::endl;
-	std::cout << a * b << std::endl;
-	std::cout << a / b << std::endl;
-	std::cout << a % b << std::endl;
+		if (buff[0] == '0')
+			break;
+
+		if (buff == num)
+			std::cout << "yes" << std::endl;
+		else
+			std::cout << "no" << std::endl;
+	}
 
 	return 0;
 }
