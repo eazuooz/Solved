@@ -12,39 +12,23 @@
 
 int main()
 {
-	std::stack<int> stack;
 	int length = 0;
-	std::cin >> length;
+	std::string input = "";
+	std::cin >> length >> input;
 
-	std::vector<char> record = {};
-
-	int count = 1;
-	for (size_t i = 0; i < length; i++)
+	long long hash = 0;
+	long long r = 1;
+	const long long m = 1234567891;
+	for (int i = 0; i < length; i++)
 	{
-		int num = 0;
-		std::cin >> num;
-
-		while (count <= num)
-		{
-			stack.push(count++);
-			record.push_back('+');
-		}
-
-		if (stack.top() == num)
-		{
-			stack.pop();
-			record.push_back('-');
-		}
-		else
-		{
-			std::cout << "NO";
-			return 0;
-		}
-
+		char ch = input[i];
+		int value = (ch - 'a') + 1;
+		
+		hash = (hash + value * r) % m;
+		r = (r * 31) % m;
 	}
 
-	for (char ch : record)
-		std::cout << ch << "\n";
+	std::cout << hash;
 
 	return 0;
 }
