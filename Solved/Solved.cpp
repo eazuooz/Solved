@@ -11,12 +11,22 @@
 #include <numeric>
 #pragma endregion
 
+float TrimmedMean(const std::vector<int>& records, float percent = 0.3f)
+{
+	float fifteenPercent = (float)records.size() * (percent * 0.5f);
+	int cuttingCount = round(fifteenPercent);
+
+	float sum = 0.0f;
+	for (size_t i = cuttingCount; i < records.size() - cuttingCount; i++)
+		sum += records[i];
+
+	return round(sum / (records.size() - cuttingCount * 2));
+}
+
 int main()
 {
 	int n = 0;
 	std::cin >> n;
-	float fifteenPercent = (float)n * 0.15f;
-	int cuttingCount = round(fifteenPercent);
 
 	if (n == 0)
 	{
@@ -24,23 +34,16 @@ int main()
 		return 0;
 	}
 
-	std::vector<int> vector = {};
+	std::vector<int> records = {};
 	for (size_t i = 0; i < n; i++)
 	{
 		int num = 0;
 		std::cin >> num;
-		vector.push_back(num);
+		records.push_back(num);
 	}
-
-	std::sort(vector.begin(), vector.end());
+	std::sort(records.begin(), records.end());
 	
-	float sum = 0.0f;
-	for (size_t i = cuttingCount; i < n - cuttingCount; i++)
-	{
-		sum += vector[i];
-	}
-	
-	float average = round(sum / (n - cuttingCount * 2));
+	float average = TrimmedMean(records);
 	std::cout << (int)average;
 
 	return 0;
