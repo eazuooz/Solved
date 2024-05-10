@@ -9,26 +9,30 @@
 #include <stack>
 #pragma endregion
 
+std::pair<int, int> fibonacci(int n)
+{
+	std::pair<int, int> dp[41] = { {1,0}, {0,1}, };
+	for (size_t i = 2; i <= n; i++)
+	{
+		dp[i].first = dp[i - 1].second;
+		dp[i].second = dp[i - 1].first + dp[i - 1].second;
+	}
+
+	return std::make_pair(dp[n].first, dp[n].second);
+}
 
 int main()
 {
-	int length = 0;
-	std::string input = "";
-	std::cin >> length >> input;
-
-	long long hash = 0;
-	long long r = 1;
-	const long long m = 1234567891;
-	for (int i = 0; i < length; i++)
+	int testCase = 0;
+	std::cin >> testCase;
+	for (size_t i = 0; i < testCase; i++)
 	{
-		char ch = input[i];
-		int value = (ch - 'a') + 1;
-		
-		hash = (hash + value * r) % m;
-		r = (r * 31) % m;
-	}
+		int num = 0;
+		std::cin >> num;
+		std::pair<int, int> ret = fibonacci(num);
 
-	std::cout << hash;
+		std::cout << ret.first << " " << ret.second << "\n";
+	}
 
 	return 0;
 }
