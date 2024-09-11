@@ -11,40 +11,40 @@
 #include <numeric>
 #pragma endregion
 
-float TrimmedMean(const std::vector<int>& records, float percent = 0.3f)
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+vector<int> twoSum(vector<int>& nums, int target)
 {
-	float fifteenPercent = (float)records.size() * (percent * 0.5f);
-	int cuttingCount = round(fifteenPercent);
+	unordered_map<int, int> numMap;
+	int n = nums.size();
 
-	float sum = 0.0f;
-	for (size_t i = cuttingCount; i < records.size() - cuttingCount; i++)
-		sum += records[i];
+	// Build the hash table
+	for (int i = 0; i < n; i++)
+	{
+		numMap[nums[i]] = i;
+	}
 
-	return round(sum / (records.size() - cuttingCount * 2));
+	// Find the complement
+	for (int i = 0; i < n; i++)
+	{
+		int complement = target - nums[i];
+		if (numMap.count(complement) && numMap[complement] != i)
+		{
+			return { i, numMap[complement] };
+		}
+	}
+
+	return {}; // No solution found
 }
 
 int main()
 {
-	int n = 0;
-	std::cin >> n;
-
-	if (n == 0)
-	{
-		std::cout << 0;
-		return 0;
-	}
-
-	std::vector<int> records = {};
-	for (size_t i = 0; i < n; i++)
-	{
-		int num = 0;
-		std::cin >> num;
-		records.push_back(num);
-	}
-	std::sort(records.begin(), records.end());
-	
-	float average = TrimmedMean(records);
-	std::cout << (int)average;
+	std::vector<int> nums = { 2,7,11,15 };
+	twoSum(nums, 9);
 
 	return 0;
 }
