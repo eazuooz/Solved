@@ -16,35 +16,28 @@
 #include <unordered_map>
 
 using namespace std;
+//Remove Duplicates from Sorted Array
 
-vector<int> twoSum(vector<int>& nums, int target)
+int removeDuplicates(vector<int>& nums)
 {
-	unordered_map<int, int> numMap;
-	int n = nums.size();
-
-	// Build the hash table
-	for (int i = 0; i < n; i++)
+	int j = 1;
+	for (int i = 1; i < nums.size(); i++)
 	{
-		numMap[nums[i]] = i;
-	}
-
-	// Find the complement
-	for (int i = 0; i < n; i++)
-	{
-		int complement = target - nums[i];
-		if (numMap.count(complement) && numMap[complement] != i)
+		if (nums[i] != nums[i - 1])
 		{
-			return { i, numMap[complement] };
+			nums[j] = nums[i];
+			j++;
 		}
 	}
-
-	return {}; // No solution found
+	return j;
 }
 
 int main()
 {
-	std::vector<int> nums = { 2,7,11,15 };
-	twoSum(nums, 9);
+	vector<int> nums = { 1,1,2 };
+	int output = removeDuplicates(nums);
+
+	//5, nums = [0,1,2,3,4,_,_,_,_,_]
 
 	return 0;
 }
