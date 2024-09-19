@@ -7,37 +7,41 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <map>
+#include <list>
 #include <stack>
 #include <numeric>
 #pragma endregion
 
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-
 using namespace std;
-//Remove Duplicates from Sorted Array
 
-int removeDuplicates(vector<int>& nums)
+//Best Time to Buy and Sell Stock II
+int maxProfit(vector<int>& prices) 
 {
-	int j = 1;
-	for (int i = 1; i < nums.size(); i++)
+	int max = 0;
+	int start = prices[0];
+	for (int i = 1; i < prices.size(); i++) 
 	{
-		if (nums[i] != nums[i - 1])
+		if (start < prices[i]) 
 		{
-			nums[j] = nums[i];
-			j++;
+			max += prices[i] - start;
 		}
+
+		start = prices[i];
 	}
-	return j;
+
+	return max;
 }
 
 int main()
 {
-	vector<int> nums = { 1,1,2 };
-	int output = removeDuplicates(nums);
+	vector<int> prices = { 7,1,5,3,6,4 };
 
-	//5, nums = [0,1,2,3,4,_,_,_,_,_]
+	//first 1buy 5sell
+	//second 3buy 6sell
+	//total sum = 7
+
+	int output = maxProfit(prices);
 
 	return 0;
 }
