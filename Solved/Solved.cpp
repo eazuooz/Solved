@@ -15,22 +15,24 @@
 
 using namespace std;
 
-//Rotate Array
-void rotate(vector<int>& nums, int k) 
+//containsDuplicate
+bool containsDuplicate(vector<int>& nums)
 {
-	k = k % nums.size();
-	reverse(nums.begin(), nums.begin() + (nums.size() - k));
-	reverse(nums.begin() + (nums.size() - k), nums.end());
-	reverse(nums.begin(), nums.end());
+	unordered_map<int, int> seen;
+	for (int num : nums) 
+	{
+		if (seen[num] >= 1)
+			return true;
+
+		seen[num]++;
+	}
+	return false;
 }
 
 int main()
 {
-	//vector<int> nums = { -1,-100,3,99 };
-	vector<int> nums = { 1,2,3,4,5,6,7 };
-	//vector<int> nums = { -1 };
-	//rotate(nums, 1);
-	rotate(nums, 10);
+	vector<int> nums = { 1,2,3,1 };
+	containsDuplicate(nums);
 
 	return 0;
 }
