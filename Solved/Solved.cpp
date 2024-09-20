@@ -15,33 +15,22 @@
 
 using namespace std;
 
-//Best Time to Buy and Sell Stock II
-int maxProfit(vector<int>& prices) 
+//Rotate Array
+void rotate(vector<int>& nums, int k) 
 {
-	int max = 0;
-	int start = prices[0];
-	for (int i = 1; i < prices.size(); i++) 
-	{
-		if (start < prices[i]) 
-		{
-			max += prices[i] - start;
-		}
-
-		start = prices[i];
-	}
-
-	return max;
+	k = k % nums.size();
+	reverse(nums.begin(), nums.begin() + (nums.size() - k));
+	reverse(nums.begin() + (nums.size() - k), nums.end());
+	reverse(nums.begin(), nums.end());
 }
 
 int main()
 {
-	vector<int> prices = { 7,1,5,3,6,4 };
-
-	//first 1buy 5sell
-	//second 3buy 6sell
-	//total sum = 7
-
-	int output = maxProfit(prices);
+	//vector<int> nums = { -1,-100,3,99 };
+	vector<int> nums = { 1,2,3,4,5,6,7 };
+	//vector<int> nums = { -1 };
+	//rotate(nums, 1);
+	rotate(nums, 10);
 
 	return 0;
 }
