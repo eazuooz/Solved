@@ -15,24 +15,35 @@
 
 using namespace std;
 
-//containsDuplicate
-bool containsDuplicate(vector<int>& nums)
+//Single Number
+int singleNumber(vector<int>& nums) 
 {
-	unordered_map<int, int> seen;
-	for (int num : nums) 
-	{
-		if (seen[num] >= 1)
-			return true;
+	int onceNum = 0;
+	unordered_map<int, int> bucket = {};
 
-		seen[num]++;
+	for (int num : nums)
+	{
+		if (bucket[num] >= 0)
+			bucket[num]++;
 	}
-	return false;
+
+	for (auto   iter : bucket)
+	{
+		if (iter.second <= 1)
+		{
+			return iter.first;
+		}
+	}
+
+	return onceNum;
 }
 
 int main()
 {
-	vector<int> nums = { 1,2,3,1 };
-	containsDuplicate(nums);
+	vector<int> nums = { 4,1,2,1,2 };
+	singleNumber(nums);
 
 	return 0;
 }
+
+
