@@ -15,45 +15,47 @@
 
 using namespace std;
 
-// Intersection of Two Arrays II
-vector<int> intersect(vector<int>& nums1, vector<int>& nums2)
+// Plus one
+vector<int> plusOne(vector<int>& digits) 
 {
-	vector<int> ret = {};
-	unordered_map<int, int> map = {};
+	reverse(digits.begin(), digits.end());
 
-	vector<int> search = nums1.size() <= nums2.size() ? nums1 : nums2;
-	vector<int> findNumbers = nums1.size() > nums2.size() ? nums1 : nums2;
-
-	for (int num : findNumbers)
+	int i = 0;
+	while (true)
 	{
-		if (map[num] >= 0)
-			map[num]++;
-	}
-
-	std::sort(search.begin(), search.end());
-
-	for (int num : search)
-	{
-		if (map.find(num) != map.end() && map[num] > 0)
+		int ret = 0;
+		if (i < digits.size())
 		{
-			map[num]--;
-			ret.push_back(num);
+			digits[i] += 1;
+			ret = digits[i];
 		}
-			
-	}
+		else
+		{
+			digits.push_back(1);
+		}
 
-	return ret;
+		
+		if (ret == 10)
+		{
+			digits[i++] = 0;
+		}
+		else
+		{
+			break;
+		}
+	}
+		
+	reverse(digits.begin(), digits.end());
+
+	
+	return digits;
 }
 
 int main()
 {
-	//vector<int> nums1 = { 1,2,2,1 };
-	//vector<int> nums2 = { 2,2 };
+	vector<int> digits = { 3, 1, 4 };
 
-	vector<int> nums1 = { 3,1,2 };
-	vector<int> nums2 = { 1,1 };
-
-	intersect(nums1, nums2);
+	plusOne(digits);
 
 	return 0;
 }
