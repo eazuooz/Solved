@@ -15,35 +15,46 @@
 
 using namespace std;
 
-//Single Number
-int singleNumber(vector<int>& nums) 
+// Intersection of Two Arrays II
+vector<int> intersect(vector<int>& nums1, vector<int>& nums2)
 {
-	int onceNum = 0;
-	unordered_map<int, int> bucket = {};
+	vector<int> ret = {};
+	unordered_map<int, int> map = {};
 
-	for (int num : nums)
+	vector<int> search = nums1.size() <= nums2.size() ? nums1 : nums2;
+	vector<int> findNumbers = nums1.size() > nums2.size() ? nums1 : nums2;
+
+	for (int num : findNumbers)
 	{
-		if (bucket[num] >= 0)
-			bucket[num]++;
+		if (map[num] >= 0)
+			map[num]++;
 	}
 
-	for (auto   iter : bucket)
+	std::sort(search.begin(), search.end());
+
+	for (int num : search)
 	{
-		if (iter.second <= 1)
+		if (map.find(num) != map.end() && map[num] > 0)
 		{
-			return iter.first;
+			map[num]--;
+			ret.push_back(num);
 		}
+			
 	}
 
-	return onceNum;
+	return ret;
 }
 
 int main()
 {
-	vector<int> nums = { 4,1,2,1,2 };
-	singleNumber(nums);
+	//vector<int> nums1 = { 1,2,2,1 };
+	//vector<int> nums2 = { 2,2 };
+
+	vector<int> nums1 = { 3,1,2 };
+	vector<int> nums2 = { 1,1 };
+
+	intersect(nums1, nums2);
 
 	return 0;
 }
-
 
