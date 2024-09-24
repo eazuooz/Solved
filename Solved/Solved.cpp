@@ -15,47 +15,25 @@
 
 using namespace std;
 
-// Plus one
-vector<int> plusOne(vector<int>& digits) 
+// Move Zeroes
+void moveZeroes(vector<int>& nums)
 {
-	reverse(digits.begin(), digits.end());
-
-	int i = 0;
-	while (true)
+	int h = 0;
+	for (int i = 0; i < nums.size(); i++) 
 	{
-		int ret = 0;
-		if (i < digits.size())
+		if (nums[i] != 0) 
 		{
-			digits[i] += 1;
-			ret = digits[i];
-		}
-		else
-		{
-			digits.push_back(1);
-		}
-
-		
-		if (ret == 10)
-		{
-			digits[i++] = 0;
-		}
-		else
-		{
-			break;
+			swap(nums[i], nums[h]);
+			h++;
 		}
 	}
-		
-	reverse(digits.begin(), digits.end());
-
-	
-	return digits;
 }
 
 int main()
 {
-	vector<int> digits = { 3, 1, 4 };
+	vector<int> nums = { 0,1,0,3,12 };
 
-	plusOne(digits);
+	moveZeroes(nums);
 
 	return 0;
 }
