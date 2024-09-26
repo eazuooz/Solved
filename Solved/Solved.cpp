@@ -16,33 +16,36 @@
 
 using namespace std;
 
-// First Unique Character in a String
-int firstUniqChar(string s) 
+// Valid Anagram
+bool isAnagram(string s, string t) \
 {
-	unordered_map<char, int> map;
-	for (size_t i = 0; i < s.length(); i++)
+	unordered_map<char, int> s1Map;
+	for (char ch : s)
 	{
-		char ch = s[i];
-		
-		if (map[ch] >= 0)
-			map[ch]++;
+		if (s1Map[ch] >= 0)
+			s1Map[ch]++;
 	}
 
-	for (size_t i = 0; i < s.length(); i++)
+	unordered_map<char, int> s2Map;
+	for (char ch : t)
 	{
-		char ch = s[i];
-		
-		if (map[ch] == 1)
-			return i;
+		if (s2Map[ch] >= 0)
+			s2Map[ch]++;
 	}
 
-	return -1;
+	for (char ch = 'a'; ch <= 'z'; ch++)
+	{
+		if (s1Map[ch] != s2Map[ch])
+			return false;
+	}
+
+	return true;
 }
 
 
 int main()
 {		  
-	firstUniqChar("loveleetcode"); //loveleetcode
+	isAnagram("rat", "car"); //loveleetcode
 		  
 	return 0;
 }
