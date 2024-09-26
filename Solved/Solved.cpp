@@ -16,30 +16,31 @@
 
 using namespace std;
 
-// Rotate image
-void rotate(vector<vector<int>>& matrix)
+// reverse integer
+ int reverse(int x)
 {
-	int row = matrix.size();
+	 int ans = 0;
 
-	for (size_t i = 0; i < row - 1; i++)
-	{
-		for (size_t j = i + 1; j < row; j++)
-		{
-			swap(matrix[i][j], matrix[j][i]);
-		}
-	}
+	 while (x != 0)
+	 {
+		 int digit = x % 10;
 
-	for (size_t i = 0; i < row; i++)
-	{
-		reverse(matrix[i].begin(), matrix[i].end());
-	}
+		 if ( ans > INT_MAX / 10 
+			 || ans < INT_MIN / 10 )
+			 return 0;
+
+
+		 ans = (ans * 10) + digit;
+		 x = x / 10;
+	 }
+
+	 return ans;
 }
 
 int main()
-{
-	vector<vector<int>> matrix = { {1,2,3},{4,5,6},{7,8,9} };
-	rotate(matrix);
-
+{		  //2147483647
+	reverse(1534236469);
+		  //1056389759
 	return 0;
 }
 
