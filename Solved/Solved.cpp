@@ -17,35 +17,29 @@
 using namespace std;
 
 // Valid Anagram
-bool isAnagram(string s, string t) \
+bool isPalindrome(string s) 
 {
-	unordered_map<char, int> s1Map;
-	for (char ch : s)
+	string rev = "";
+	for (size_t i = 0; i < s.length(); i++)
 	{
-		if (s1Map[ch] >= 0)
-			s1Map[ch]++;
+		char ch = s[i];
+		ch = tolower(ch);
+		if (isalnum(ch))
+			rev.push_back(ch);
 	}
+	s = rev;
+	reverse(rev.begin(), rev.end());
 
-	unordered_map<char, int> s2Map;
-	for (char ch : t)
-	{
-		if (s2Map[ch] >= 0)
-			s2Map[ch]++;
-	}
+	if (rev == s)
+		return true;
 
-	for (char ch = 'a'; ch <= 'z'; ch++)
-	{
-		if (s1Map[ch] != s2Map[ch])
-			return false;
-	}
-
-	return true;
+	return false;
 }
 
 
 int main()
 {		  
-	isAnagram("rat", "car"); //loveleetcode
+	isPalindrome("A man, a plan, a canal: Panama"); //loveleetcode
 		  
 	return 0;
 }
