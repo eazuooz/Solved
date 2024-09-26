@@ -16,31 +16,34 @@
 
 using namespace std;
 
-// reverse integer
- int reverse(int x)
+// First Unique Character in a String
+int firstUniqChar(string s) 
 {
-	 int ans = 0;
+	unordered_map<char, int> map;
+	for (size_t i = 0; i < s.length(); i++)
+	{
+		char ch = s[i];
+		
+		if (map[ch] >= 0)
+			map[ch]++;
+	}
 
-	 while (x != 0)
-	 {
-		 int digit = x % 10;
+	for (size_t i = 0; i < s.length(); i++)
+	{
+		char ch = s[i];
+		
+		if (map[ch] == 1)
+			return i;
+	}
 
-		 if ( ans > INT_MAX / 10 
-			 || ans < INT_MIN / 10 )
-			 return 0;
-
-
-		 ans = (ans * 10) + digit;
-		 x = x / 10;
-	 }
-
-	 return ans;
+	return -1;
 }
 
+
 int main()
-{		  //2147483647
-	reverse(1534236469);
-		  //1056389759
+{		  
+	firstUniqChar("loveleetcode"); //loveleetcode
+		  
 	return 0;
 }
 
