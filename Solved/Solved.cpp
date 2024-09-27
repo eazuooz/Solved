@@ -16,31 +16,67 @@
 
 using namespace std;
 
-// Valid Anagram
-bool isPalindrome(string s) 
+// String to Integer (atoi)
+int myAtoi(string s)
 {
-	string rev = "";
-	for (size_t i = 0; i < s.length(); i++)
+	long long int ans = 0;
+	int i = 0;
+
+	// Skip leading whitespaces
+	while (s[i] == ' ') 
+		i++;
+
+	int sign = 0;   // 0 -> + , 1 -> -
+
+	// Handle signs
+	if (s[i] == '-') 
 	{
-		char ch = s[i];
-		ch = tolower(ch);
-		if (isalnum(ch))
-			rev.push_back(ch);
+		sign = 1;
+		i++;
 	}
-	s = rev;
-	reverse(rev.begin(), rev.end());
+	else if (s[i] == '+') 
+	{
+		sign = 0;
+		i++;
+	}
 
-	if (rev == s)
-		return true;
+	// Skip leading zeros
+	while (s[i] == '0') 
+		i++;
 
-	return false;
+	// Convert characters to integer
+	while (s[i] >= '0' && s[i] <= '9') 
+	{
+		if (ans > INT_MAX) 
+		{
+			if (sign) 
+				return INT_MIN;
+
+			return INT_MAX;
+		}
+
+		ans = ans * 10 + s[i] - '0';
+		i++;
+	}
+
+	// Apply sign
+	if (sign) 
+		ans *= -1;
+
+	// Handle overflow/underflow
+	if (ans > INT_MAX) return INT_MAX;
+	if (ans < INT_MIN) return INT_MIN;
+
+	return (int)ans;
 }
 
 
 int main()
 {		  
-	isPalindrome("A man, a plan, a canal: Panama"); //loveleetcode
+	myAtoi("+-12");
 		  
+	int a = atoi("0-1");
+
 	return 0;
 }
 
