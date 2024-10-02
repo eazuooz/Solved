@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <map>
+#include <set>
 #include <list>
 #include <stack>
 #include <numeric>
@@ -17,18 +18,30 @@
 using namespace std;
 
 //Find the Index of the First Occurrence in a String
-int strStr(string haystack, string needle)
+string longestCommonPrefix(vector<string>& strs)
 {
-	int ret = -1;
-	ret = haystack.find(needle);
+	string ans = "";
+	sort(strs.begin(), strs.end());
+	int n = strs.size();
+	string first = strs[0], last = strs[n - 1];
 
-	return haystack.find(needle);
+	for (int i = 0; i < min(first.size(), last.size()); i++) 
+	{
+		if (first[i] != last[i])
+		{
+			return ans;
+		}
+
+		ans += first[i];
+	}
+	return ans;
 }
 
 
 int main()
-{		  
-	strStr("sadbutsad", "zzz");
+{	
+	vector<string> strs = { "flower","flow","flight" /*"dog","racecar","car"*/};
+	longestCommonPrefix(strs);
 		  
 
 
