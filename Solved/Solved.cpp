@@ -25,6 +25,7 @@ using namespace std;
 // *     ListNode(int x) : val(x), next(NULL) {}
 // * };
  
+//Delete Node in a Linked List
 struct ListNode 
 {
     ListNode(int x) : val(x), next(NULL) 
@@ -36,29 +37,71 @@ struct ListNode
     ListNode *next;
 };
 
-void deleteNode(ListNode* node)
+ListNode* removeNthFromEnd(ListNode* head, int n)
 {
-	ListNode* nextNode = node->next;
+    int length = 0;
+    ListNode* p = head;
+    while (p != nullptr)
+    {
+        p = p->next;
+        length++;
+    }
 
-	node->val = nextNode->val;
-	node->next = nextNode->next;
+    p = head;
+    ListNode* prev = nullptr;
+    while (p != nullptr)
+    {
+        if (length == n)
+        {
+			ListNode* nextNode = p->next;
 
-	delete nextNode;
-	nextNode = nullptr;
+            if (nextNode)
+            {
+                p->val = nextNode->val;
+			    p->next = nextNode->next;
+            }
+            else
+            {
+                if (prev)
+                {
+					delete prev->next;
+					prev->next = nullptr;
+				}
+                else
+                {
+                    delete p;
+                    p = nullptr;
+
+                    return nullptr;
+                }
+
+                break;
+            }
+			
+
+			delete nextNode;
+			nextNode = nullptr;
+        }
+
+        length--;
+        prev = p;
+        p = p->next;
+    }
+
+    return head;
 }
 
 int main()
 {	
     ListNode* head = nullptr;
 
-    head = new ListNode(4);
-    head->next = new ListNode(5);
-    head->next->next = new ListNode(1);
-    head->next->next->next = new ListNode(9);
+    head = new ListNode(1);
+    head->next = new ListNode(2);
+    //head->next->next = new ListNode(3);
+    //head->next->next->next = new ListNode(4);
+    //head->next->next->next->next = new ListNode(5);
 
-	deleteNode(head);
-		  
-
+	removeNthFromEnd(head, 1);
 
 	return 0;
 }
