@@ -17,31 +17,46 @@
 
 using namespace std;
 
-//Find the Index of the First Occurrence in a String
-string longestCommonPrefix(vector<string>& strs)
+//*
+// * Definition for singly-linked list.
+// * struct ListNode {
+// *     int val;
+// *     ListNode *next;
+// *     ListNode(int x) : val(x), next(NULL) {}
+// * };
+ 
+struct ListNode 
 {
-	string ans = "";
-	sort(strs.begin(), strs.end());
-	int n = strs.size();
-	string first = strs[0], last = strs[n - 1];
+    ListNode(int x) : val(x), next(NULL) 
+    {
+    
+    }
 
-	for (int i = 0; i < min(first.size(), last.size()); i++) 
-	{
-		if (first[i] != last[i])
-		{
-			return ans;
-		}
+    int val;
+    ListNode *next;
+};
 
-		ans += first[i];
-	}
-	return ans;
+void deleteNode(ListNode* node)
+{
+	ListNode* nextNode = node->next;
+
+	node->val = nextNode->val;
+	node->next = nextNode->next;
+
+	delete nextNode;
+	nextNode = nullptr;
 }
-
 
 int main()
 {	
-	vector<string> strs = { "flower","flow","flight" /*"dog","racecar","car"*/};
-	longestCommonPrefix(strs);
+    ListNode* head = nullptr;
+
+    head = new ListNode(4);
+    head->next = new ListNode(5);
+    head->next->next = new ListNode(1);
+    head->next->next->next = new ListNode(9);
+
+	deleteNode(head);
 		  
 
 
