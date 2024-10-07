@@ -37,35 +37,41 @@ struct ListNode
 	ListNode* next;
 };
 
-ListNode* reverseList(ListNode* head)
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
 {
-	ListNode* p = nullptr;
-	ListNode* q = nullptr;
-	ListNode* r = head;
+    if (list1 == nullptr)
+        return list2;
 
-	while (r != nullptr)
-	{
-		p = q;
-		q = r;
-		r = r->next;
+    if (list2 == nullptr)
+        return list1;
 
-		q->next = p;
-	}
-
-    return q;
+    if (list1->val < list2->val)
+    {
+        list1->next = mergeTwoLists(list1->next, list2);
+        return list1;
+    }
+    else
+    {
+        list2->next = mergeTwoLists(list1, list2->next);
+        return list2;
+    }
 }
 
 int main()
 {	
-    ListNode* head = nullptr;
+    ListNode* list1 = nullptr;
 
-    head = new ListNode(1);
-    head->next = new ListNode(2);
-    head->next->next = new ListNode(3);
-    head->next->next->next = new ListNode(4);
-    head->next->next->next->next = new ListNode(5);
+    list1 = new ListNode(1);
+    list1->next = new ListNode(3);
+    list1->next->next = new ListNode(4);
 
-	reverseList(head);
+
+    ListNode* list2 = nullptr;
+    list2 = new ListNode(1);
+    list2->next= new ListNode(2);
+    list2->next->next = new ListNode(4);
+
+	mergeTwoLists(list1, list2);
 
 	return 0;
 }
