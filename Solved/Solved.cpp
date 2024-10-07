@@ -17,78 +17,42 @@
 
 using namespace std;
 
-//*
-// * Definition for singly-linked list.
-// * struct ListNode {
-// *     int val;
-// *     ListNode *next;
-// *     ListNode(int x) : val(x), next(NULL) {}
-// * };
- 
-//Delete Node in a Linked List
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 struct ListNode 
 {
-    ListNode(int x) : val(x), next(NULL) 
-    {
-    
-    }
+	ListNode() : val(0), next(nullptr) {}
+	ListNode(int x) : val(x), next(nullptr) {}
+	ListNode(int x, ListNode* next) : val(x), next(next) {}
 
     int val;
-    ListNode *next;
+	ListNode* next;
 };
 
-ListNode* removeNthFromEnd(ListNode* head, int n)
+ListNode* reverseList(ListNode* head)
 {
-    int length = 0;
-    ListNode* p = head;
-    while (p != nullptr)
-    {
-        p = p->next;
-        length++;
-    }
+	ListNode* p = nullptr;
+	ListNode* q = nullptr;
+	ListNode* r = head;
 
-    p = head;
-    ListNode* prev = nullptr;
-    while (p != nullptr)
-    {
-        if (length == n)
-        {
-			ListNode* nextNode = p->next;
+	while (r != nullptr)
+	{
+		p = q;
+		q = r;
+		r = r->next;
 
-            if (nextNode)
-            {
-                p->val = nextNode->val;
-			    p->next = nextNode->next;
-            }
-            else
-            {
-                if (prev)
-                {
-					delete prev->next;
-					prev->next = nullptr;
-				}
-                else
-                {
-                    delete p;
-                    p = nullptr;
+		q->next = p;
+	}
 
-                    return nullptr;
-                }
-
-                break;
-            }
-			
-
-			delete nextNode;
-			nextNode = nullptr;
-        }
-
-        length--;
-        prev = p;
-        p = p->next;
-    }
-
-    return head;
+    return q;
 }
 
 int main()
@@ -97,11 +61,11 @@ int main()
 
     head = new ListNode(1);
     head->next = new ListNode(2);
-    //head->next->next = new ListNode(3);
-    //head->next->next->next = new ListNode(4);
-    //head->next->next->next->next = new ListNode(5);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
 
-	removeNthFromEnd(head, 1);
+	reverseList(head);
 
 	return 0;
 }
