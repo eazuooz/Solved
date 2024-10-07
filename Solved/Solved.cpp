@@ -27,51 +27,56 @@ using namespace std;
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-struct ListNode 
+struct ListNode
 {
 	ListNode() : val(0), next(nullptr) {}
 	ListNode(int x) : val(x), next(nullptr) {}
 	ListNode(int x, ListNode* next) : val(x), next(next) {}
 
-    int val;
+	int val;
 	ListNode* next;
 };
 
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
+bool isPalindrome(ListNode* head)
 {
-    if (list1 == nullptr)
-        return list2;
+	ListNode* p = nullptr;
+	ListNode* q = nullptr;
+	ListNode* r = head;
 
-    if (list2 == nullptr)
-        return list1;
+	vector<int> origin;
+	while (r != nullptr)
+	{
+		origin.push_back(r->val);
+		p = q;
+		q = r;
+		r = r->next;
 
-    if (list1->val < list2->val)
-    {
-        list1->next = mergeTwoLists(list1->next, list2);
-        return list1;
-    }
-    else
-    {
-        list2->next = mergeTwoLists(list1, list2->next);
-        return list2;
-    }
+		q->next = p;
+	}
+
+	int idx = 0;
+	for (ListNode* p = q; p != nullptr; p = p->next)
+	{
+		if (p->val != origin[idx++])
+			return false;
+	}
+
+	return true;
 }
 
+
 int main()
-{	
-    ListNode* list1 = nullptr;
+{
+	ListNode* list1 = nullptr;
 
-    list1 = new ListNode(1);
-    list1->next = new ListNode(3);
-    list1->next->next = new ListNode(4);
+	list1 = new ListNode(1);
+	list1->next = new ListNode(1);
+	list1->next->next = new ListNode(2);
+	list1->next->next->next = new ListNode(1);
 
 
-    ListNode* list2 = nullptr;
-    list2 = new ListNode(1);
-    list2->next= new ListNode(2);
-    list2->next->next = new ListNode(4);
 
-	mergeTwoLists(list1, list2);
+	bool check = isPalindrome(list1);
 
 	return 0;
 }
