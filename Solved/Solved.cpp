@@ -16,57 +16,44 @@
 #pragma endregion
 
 using namespace std;
-//Linked List Cycle
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
-struct ListNode
-{
-	ListNode() : val(0), next(nullptr) {}
-	ListNode(int x) : val(x), next(nullptr) {}
-	ListNode(int x, ListNode* next) : val(x), next(next) {}
 
+// Definition for a binary tree node.
+struct TreeNode {
 	int val;
-	ListNode* next;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+	TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
-bool hasCycle(ListNode *head)
+int RecursiveFindMaxDepth(TreeNode* node)
 {
-	ListNode* p = head;
-	std::unordered_map<ListNode*, int> umap;
-	while (p != nullptr)
-	{
-		if (umap[p] >= 1)
-			return true;
+	if (node == nullptr)
+		return 0;
+		
+	int leftDepth = RecursiveFindMaxDepth(node->left);
+	int rogjtDepth = RecursiveFindMaxDepth(node->right);
 
-		if (umap[p] >= 0)
-			umap[p]++;
+	return std::max(leftDepth, rogjtDepth) + 1;
+}
 
-		p = p->next;
-	}
-
-	return false;
+int maxDepth(TreeNode* root)
+{
+	return RecursiveFindMaxDepth(root);
 }
 
 
 int main()
 {
-	ListNode* list1 = nullptr;
+	TreeNode* root = new TreeNode(3);
+	root->left = new TreeNode(9);
+	root->right = new TreeNode(20);
 
-	list1 = new ListNode(3);
-	list1->next = new ListNode(2);
-	list1->next->next = new ListNode(0);
-	list1->next->next->next = new ListNode(4);
-	//list1->next->next->next->next = list1->next;
+	root->right->left = new TreeNode(15);
+	root->right->right = new TreeNode(7);
 
-	bool check = hasCycle(list1);
+	bool check = maxDepth(root);
 
 	return 0;
 }
