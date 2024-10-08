@@ -16,7 +16,7 @@
 #pragma endregion
 
 using namespace std;
-
+//Linked List Cycle
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -37,31 +37,22 @@ struct ListNode
 	ListNode* next;
 };
 
-bool isPalindrome(ListNode* head)
+bool hasCycle(ListNode *head)
 {
-	ListNode* p = nullptr;
-	ListNode* q = nullptr;
-	ListNode* r = head;
-
-	vector<int> origin;
-	while (r != nullptr)
+	ListNode* p = head;
+	std::unordered_map<ListNode*, int> umap;
+	while (p != nullptr)
 	{
-		origin.push_back(r->val);
-		p = q;
-		q = r;
-		r = r->next;
+		if (umap[p] >= 1)
+			return true;
 
-		q->next = p;
+		if (umap[p] >= 0)
+			umap[p]++;
+
+		p = p->next;
 	}
 
-	int idx = 0;
-	for (ListNode* p = q; p != nullptr; p = p->next)
-	{
-		if (p->val != origin[idx++])
-			return false;
-	}
-
-	return true;
+	return false;
 }
 
 
@@ -69,14 +60,13 @@ int main()
 {
 	ListNode* list1 = nullptr;
 
-	list1 = new ListNode(1);
-	list1->next = new ListNode(1);
-	list1->next->next = new ListNode(2);
-	list1->next->next->next = new ListNode(1);
+	list1 = new ListNode(3);
+	list1->next = new ListNode(2);
+	list1->next->next = new ListNode(0);
+	list1->next->next->next = new ListNode(4);
+	//list1->next->next->next->next = list1->next;
 
-
-
-	bool check = isPalindrome(list1);
+	bool check = hasCycle(list1);
 
 	return 0;
 }
