@@ -13,6 +13,7 @@
 #include <list>
 #include <stack>
 #include <numeric>
+#include <queue>
 #pragma endregion
 
 using namespace std;
@@ -27,33 +28,68 @@ struct TreeNode {
 	TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
-int RecursiveFindMaxDepth(TreeNode* node)
+
+//enum eDirection
+//{
+//	Root,
+//	Left,
+//	Right,
+//};
+bool RecursiveIsValidBST(TreeNode* node, long min, long max)
 {
 	if (node == nullptr)
-		return 0;
-		
-	int leftDepth = RecursiveFindMaxDepth(node->left);
-	int rogjtDepth = RecursiveFindMaxDepth(node->right);
+		return true;
 
-	return std::max(leftDepth, rogjtDepth) + 1;
+	if (!(node->val > min && node->val < max))
+		return false;
+
+	bool bLeft = RecursiveIsValidBST(node->left, min, node->val);
+	bool bRight = RecursiveIsValidBST(node->right, node->val, max);
+
+	return bLeft && bRight;
 }
 
-int maxDepth(TreeNode* root)
+
+bool isValidBST(TreeNode* root)
 {
-	return RecursiveFindMaxDepth(root);
+	//std::queue<TreeNode*> queue;
+	//queue.push(root);
+
+	//while (!queue.empty())
+	//{
+	//	TreeNode* p = queue.front();
+	//	
+	//	if (p->left && p->val <= p->left->val)
+	//		return false;
+	//	if (p->right && p->val >= p->right->val)
+	//		return false;
+
+	//	if (p->left)
+	//		queue.push(p->left);
+	//	if (p->right)
+	//		queue.push(p->right);
+
+	//	queue.pop();
+	//}
+
+
+	bool bAns = RecursiveIsValidBST(root, LONG_MIN, LONG_MAX);
+
+
+	return bAns;
 }
 
 
 int main()
 {
-	TreeNode* root = new TreeNode(3);
-	root->left = new TreeNode(9);
-	root->right = new TreeNode(20);
+	TreeNode* root = new TreeNode(5);
+	root->left = new TreeNode(4);
+	root->right = new TreeNode(7);
 
-	root->right->left = new TreeNode(15);
-	root->right->right = new TreeNode(7);
+	root->right->left = new TreeNode(6);
+	root->right->right = new TreeNode(9);
 
-	bool check = maxDepth(root);
+	bool check = isValidBST(root);
 
 	return 0;
 }
