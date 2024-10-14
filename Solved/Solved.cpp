@@ -29,50 +29,47 @@ struct TreeNode {
 };
 
 
-bool RecursiveisSymmetric(TreeNode* left, TreeNode* right)
+void RecursiveisSymmetric(TreeNode* node, int level, vector<vector<int>>& ans)
 {
-	if (left == nullptr && right == nullptr)
-		return true;
-	if (left == nullptr || right == nullptr)
-		return false;
+	if (node == nullptr)
+		return;
 
-	if (left->val == right->val)
-	{
-		bool bLeft = RecursiveisSymmetric(left->left, right->right);
-		bool bRight = RecursiveisSymmetric(left->right, right->left);
+	if (ans.size() <= level)
+		ans.push_back(vector<int>());
 
-		return bLeft && bRight;
-	}
+	ans[level].push_back(node->val);
+
+	RecursiveisSymmetric(node->left, level + 1, ans);
+	RecursiveisSymmetric(node->right, level + 1, ans);
 	
-	return false;
 }
 
 
-bool isSymmetric(TreeNode* root)
+vector<vector<int>> levelOrder(TreeNode* root)
 {
 	if (root == nullptr)
-		return true;
+		return vector<vector<int>>();
 
-	return RecursiveisSymmetric(root->left, root->right);
+	vector<vector<int>> ans;
+	RecursiveisSymmetric(root, 0, ans);
+
+	return ans;
 }
 
 
 int main()
 {
-	TreeNode* root = new TreeNode(1);
-	root->left = new TreeNode(2);
-	root->right = new TreeNode(2);
+	TreeNode* root = new TreeNode(3);
+	root->left = new TreeNode(9);
+	root->right = new TreeNode(20);
 
-	root->left->left = new TreeNode(3);
-	root->left->right = new TreeNode(4);
+	//root->left->left = new TreeNode(3);
+	//root->left->right = new TreeNode(4);
 
-	//root->right->left = new TreeNode(4);
-	root->right->right = new TreeNode(3);
+	root->right->left = new TreeNode(15);
+	root->right->right = new TreeNode(7);
 
-	//root->left->left->left = new TreeNode(6);
-	//root->right->right->right = new TreeNode(6);
-
-	bool check = isSymmetric(root);
+	levelOrder(root);
 
 	return 0;
 }
