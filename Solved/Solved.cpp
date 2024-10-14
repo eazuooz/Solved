@@ -29,67 +29,50 @@ struct TreeNode {
 };
 
 
-//enum eDirection
-//{
-//	Root,
-//	Left,
-//	Right,
-//};
-bool RecursiveIsValidBST(TreeNode* node, long min, long max)
+bool RecursiveisSymmetric(TreeNode* left, TreeNode* right)
 {
-	if (node == nullptr)
+	if (left == nullptr && right == nullptr)
 		return true;
-
-	if (!(node->val > min && node->val < max))
+	if (left == nullptr || right == nullptr)
 		return false;
 
-	bool bLeft = RecursiveIsValidBST(node->left, min, node->val);
-	bool bRight = RecursiveIsValidBST(node->right, node->val, max);
+	if (left->val == right->val)
+	{
+		bool bLeft = RecursiveisSymmetric(left->left, right->right);
+		bool bRight = RecursiveisSymmetric(left->right, right->left);
 
-	return bLeft && bRight;
+		return bLeft && bRight;
+	}
+	
+	return false;
 }
 
 
-bool isValidBST(TreeNode* root)
+bool isSymmetric(TreeNode* root)
 {
-	//std::queue<TreeNode*> queue;
-	//queue.push(root);
+	if (root == nullptr)
+		return true;
 
-	//while (!queue.empty())
-	//{
-	//	TreeNode* p = queue.front();
-	//	
-	//	if (p->left && p->val <= p->left->val)
-	//		return false;
-	//	if (p->right && p->val >= p->right->val)
-	//		return false;
-
-	//	if (p->left)
-	//		queue.push(p->left);
-	//	if (p->right)
-	//		queue.push(p->right);
-
-	//	queue.pop();
-	//}
-
-
-	bool bAns = RecursiveIsValidBST(root, LONG_MIN, LONG_MAX);
-
-
-	return bAns;
+	return RecursiveisSymmetric(root->left, root->right);
 }
 
 
 int main()
 {
-	TreeNode* root = new TreeNode(5);
-	root->left = new TreeNode(4);
-	root->right = new TreeNode(7);
+	TreeNode* root = new TreeNode(1);
+	root->left = new TreeNode(2);
+	root->right = new TreeNode(2);
 
-	root->right->left = new TreeNode(6);
-	root->right->right = new TreeNode(9);
+	root->left->left = new TreeNode(3);
+	root->left->right = new TreeNode(4);
 
-	bool check = isValidBST(root);
+	//root->right->left = new TreeNode(4);
+	root->right->right = new TreeNode(3);
+
+	//root->left->left->left = new TreeNode(6);
+	//root->right->right->right = new TreeNode(6);
+
+	bool check = isSymmetric(root);
 
 	return 0;
 }
