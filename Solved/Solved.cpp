@@ -18,8 +18,9 @@
 
 using namespace std;
 
-// Definition for a binary tree node.
-struct TreeNode {
+// sortedArrayToBST
+struct TreeNode 
+{
 	int val;
 	TreeNode* left;
 	TreeNode* right;
@@ -29,47 +30,32 @@ struct TreeNode {
 };
 
 
-void RecursiveisSymmetric(TreeNode* node, int level, vector<vector<int>>& ans)
+TreeNode* insert(vector<int>& nums, int start, int end)
 {
-	if (node == nullptr)
-		return;
+	if (start == end)
+		return nullptr;
 
-	if (ans.size() <= level)
-		ans.push_back(vector<int>());
+	int mid = (start + end) / 2;
+	TreeNode* node = new TreeNode(nums[mid]);
 
-	ans[level].push_back(node->val);
-
-	RecursiveisSymmetric(node->left, level + 1, ans);
-	RecursiveisSymmetric(node->right, level + 1, ans);
+	node->left = insert(nums, start, mid);
+	node->right = insert(nums, mid + 1, end);
 	
+	return node;
 }
 
-
-vector<vector<int>> levelOrder(TreeNode* root)
+TreeNode* sortedArrayToBST(vector<int>& nums)
 {
-	if (root == nullptr)
-		return vector<vector<int>>();
+	TreeNode* root = nullptr;
+	root = insert(nums, 0, nums.size());
 
-	vector<vector<int>> ans;
-	RecursiveisSymmetric(root, 0, ans);
-
-	return ans;
+	return root;
 }
-
 
 int main()
 {
-	TreeNode* root = new TreeNode(3);
-	root->left = new TreeNode(9);
-	root->right = new TreeNode(20);
-
-	//root->left->left = new TreeNode(3);
-	//root->left->right = new TreeNode(4);
-
-	root->right->left = new TreeNode(15);
-	root->right->right = new TreeNode(7);
-
-	levelOrder(root);
+	vector<int> nums = { -10, -3, 0, 5, 9 /*1, 3*/ };
+	TreeNode* root = sortedArrayToBST(nums);
 
 	return 0;
 }
