@@ -38,7 +38,7 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
 		}
 	}
 }
-
+// 머지 테스트
 int main()
 {
 	vector<int> nums1 = { 1, 2, 3, 0, 0, 0 };
