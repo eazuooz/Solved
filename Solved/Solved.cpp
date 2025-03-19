@@ -18,38 +18,43 @@
 
 using namespace std;
 
-// Merge Sorted Array
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
 
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+class Solution 
 {
-	int a = m - 1;
-	int b = n - 1;
-	int c = m + n - 1;
-
-	while (b >= 0)
-	{
-		if (a >=0 && nums1[a] > nums2[b])
-		{
-			nums1[c--] = nums1[a--];
-		}
-		else
-		{
-			nums1[c--] = nums2[b--];
-		}
-	}
-}
+public:
+    int firstBadVersion(int n) 
+    {
+        long long int head = 0;
+        long long int rear = n;
+        long long int ans = INT_MAX;
+        
+        while(head <= rear)
+        {
+           long long int mid = (head + rear) / 2;
+            if(isBadVersion(mid))
+            {
+                if(ans > mid)
+                    ans = mid;
+                
+                rear = mid - 1;
+            }
+            else
+            {
+                head = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
 // 머지 테스트
 // 1
 //2
 int main()
 {
-	vector<int> nums1 = { 1, 2, 3, 0, 0, 0 };
-	int m = 3;
-
-	vector<int> nums2 = { 2, 5, 6 };
-	int n = 3;
-
-	merge(nums1, m, nums2, n);
+	Solution s;
+	cout << s.firstBadVersion(5) << endl;
 
 	return 0;
 }
