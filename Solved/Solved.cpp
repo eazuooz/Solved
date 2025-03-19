@@ -18,43 +18,49 @@
 
 using namespace std;
 
-// The API isBadVersion is defined for you.
-// bool isBadVersion(int version);
+//🔸 점화식 적용 (Bottom-Up)
+//cpp
+//복사
+//편집
+//for(int i = 1; i <= n; i++) {
+//    dp[i] = dp[i-1];  // 한 칸 올라온 경우
+//    if(i > 1)
+//        dp[i] += dp[i-2];  // 두 칸 올라온 경우
+//}
+//dp[i] = dp[i-1]: (i-1)번째 계단에서 한 칸 올라왔을 때
+//dp[i] += dp[i-2]: (i-2)번째 계단에서 두 칸 올라왔을 때
+//즉, 점화식:
+//
+//dp[i] = dp[i-1] + dp[i-2]
+//
+//🔹 예제 실행 (n=5)
+//i	dp[i-2]	dp[i-1]	dp[i] = dp[i-1] + dp[i-2]
+//1	X	1	1
+//2	1	1	2
+//3	1	2	3
+//4	2	3	5
+//5	3	5	8
 
-class Solution 
+int climbStairs(int n)
 {
-public:
-    int firstBadVersion(int n) 
-    {
-        long long int head = 0;
-        long long int rear = n;
-        long long int ans = INT_MAX;
-        
-        while(head <= rear)
-        {
-           long long int mid = (head + rear) / 2;
-            if(isBadVersion(mid))
-            {
-                if(ans > mid)
-                    ans = mid;
-                
-                rear = mid - 1;
-            }
-            else
-            {
-                head = mid + 1;
-            }
-        }
-        return ans;
-    }
-};
-// 머지 테스트
-// 1
-//2
+	vector<int> dp(n + 1, 0);
+	dp[0] = 1;
+
+	for (int i = 1; i <= n; i++)
+	{
+		dp[i] = dp[i - 1];
+
+		if (i > 1)
+			dp[i] += dp[i - 2];
+	}
+
+	return dp[n];
+}
+
+
 int main()
 {
-	Solution s;
-	cout << s.firstBadVersion(5) << endl;
+	climbStairs(5);
 
 	return 0;
 }
